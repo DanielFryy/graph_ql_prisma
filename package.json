@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "start": "npx ts-node src/index.ts",
     "init": "npx prisma init",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio"
