@@ -15,9 +15,17 @@ async function main() {
   //     email: 'pepito.arcoiris@gmail.com',
   //     name: 'Pepito',
   //   },
+  //   include: { posts: true },
   // });
+
+  // createUser.posts;
+
   try {
-    
+    // const user: CreateUser = {
+    //   name: '',
+    //   email: '',
+    //   acceptTermsAndConditions: true,
+    // };
     const post = await prisma.post.create({
       data: {
         published: true,
@@ -27,9 +35,9 @@ async function main() {
       },
       select: { title: true, author: { select: { name: true } } },
     });
-  
+
     console.log(inspect(post, { depth: null, colors: true }));
-  
+
     const allUsers = await prisma.user.findMany({
       // select: {
       //   id: true,
@@ -45,9 +53,8 @@ async function main() {
     });
     console.log(inspect(allUsers, { depth: null, colors: true }));
   } catch (error) {
-    console.log("myError", error);
+    console.log('myError', error);
   }
-
 }
 
 main()
