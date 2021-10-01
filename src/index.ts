@@ -16,33 +16,38 @@ async function main() {
   //     name: 'Pepito',
   //   },
   // });
+  try {
+    
+    const post = await prisma.post.create({
+      data: {
+        published: true,
+        title: 'hello2',
+        body: 'world2',
+        author: { connect: { id: 8 } },
+      },
+      select: { title: true, author: { select: { name: true } } },
+    });
+  
+    console.log(inspect(post, { depth: null, colors: true }));
+  
+    const allUsers = await prisma.user.findMany({
+      // select: {
+      //   id: true,
+      //   email: true,
+      //   name: true,
+      //   posts: {
+      //     select: {
+      //       title: true,
+      //     },
+      //   },
+      //   comments: true,
+      // },
+    });
+    console.log(inspect(allUsers, { depth: null, colors: true }));
+  } catch (error) {
+    console.log("myError", error);
+  }
 
-  const post = await prisma.post.create({
-    data: {
-      published: true,
-      title: 'hello2',
-      body: 'world2',
-      author: { connect: { id: 8 } },
-    },
-    select: { title: true, author: { select: { name: true } } },
-  });
-
-  console.log(inspect(post, { depth: null, colors: true }));
-
-  const allUsers = await prisma.user.findMany({
-    // select: {
-    //   id: true,
-    //   email: true,
-    //   name: true,
-    //   posts: {
-    //     select: {
-    //       title: true,
-    //     },
-    //   },
-    //   comments: true,
-    // },
-  });
-  console.log(inspect(allUsers, { depth: null, colors: true }));
 }
 
 main()
